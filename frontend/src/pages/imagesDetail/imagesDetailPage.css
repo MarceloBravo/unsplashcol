@@ -1,0 +1,49 @@
+.container-details-image{
+    padding: 4em;
+    width: 100%;
+}
+
+.detail-fullimage{
+    width: 100%;
+}
+
+.user-avatar{
+    border-radius: 100%;
+    margin: 0px 10px;
+}
+
+.user-name-span{
+    font-weight: 600;
+}
+
+.div-user-info{
+    margin-left: .5rem;
+}
+
+.div-user-info p{
+    margin-top: 1rem;
+}
+
+.my-grey-button{
+    background-color: #e5e7eb;
+    width: auto;
+    margin: 0px 1rem;
+}
+
+.my-grey-button img{
+    margin-right: 5px;
+    top: -2px;
+    position: static;
+}
+
+.collections-container{
+    padding-top: 2.5rem;
+}
+
+.list-collection{
+    overflow-y: auto;
+    height: 80%;
+    position: absolute;
+    width: calc(50% - 100px);
+    overflow-x: hidden;
+}

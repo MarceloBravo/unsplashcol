@@ -1,0 +1,47 @@
+.custom-row{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.custom-row *{
+    cursor: pointer;
+}
+
+.custom-row.active{
+    background-color: #e5e7eb;
+}
+
+.custom-row.active *:not(.col-remove){
+    cursor: default;
+}
+
+.div-small-image{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.div-small-image > img{
+    border-radius: 6px;
+}
+
+.img-col{
+    display: contents;
+}
+
+.img-col img{
+    height: 60px;
+}
+
+.info-col-title{
+    font-weight: bold;
+}
+
+.col-remove{
+    text-align: right;
+    align-content: center;
+    font-size: small;
+    cursor: pointer;
+}

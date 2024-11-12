@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/Logo.svg";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearResult } from "../../redux/slices/searchSlice";
 
 import "./mainNavBar.css";
 
+
 const MainNavBar = () => {
+  const [ isClickHome, setIsClickHome ] = useState(false)
+  const state = useSelector(state => state.searchSlice)
+  const dispatch = useDispatch()
   const location = useLocation();
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    if(isClickHome && state.result.length === 0){
+      setIsClickHome(false)
+      navigate('/')
+    }
+  },[state, isClickHome])
 
   const isActive = (URI) => {
     return location.pathname === URI ? "active" : ""
   }
+
+
+  const goToHome = () => {
+    setIsClickHome(true)
+    dispatch(clearResult())    
+  }
+
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -31,8 +54,8 @@ const MainNavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className={"nav-link " + isActive("/")} aria-current="page" to="/">
+           <li className="nav-item">
+              <Link className={"nav-link " + (isActive("/") || isActive("/search_result"))} aria-current="page" onClick={e => goToHome()}>
                 Home
               </Link>
             </li>

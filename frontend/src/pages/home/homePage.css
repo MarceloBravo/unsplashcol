@@ -1,0 +1,45 @@
+.div-background{
+    background-size: cover;
+    background-position: center;
+    height: 90%;
+    top: 57px;
+    width: 100%;
+    position: absolute
+}
+
+.form{
+    min-width: 490px;
+    width: 43%;   
+    text-align: center;
+    position: absolute;
+    top: 27%;
+    left: 29%;
+}
+
+.div-home-containers{
+    padding: 10px 0px;
+}
+
+#input-search{
+    font-size: x-large;
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Espacio para el ícono a la derecha */
+    font-size: 16px;
+    box-sizing: border-box; /* Asegura que el padding se mantenga dentro del input */
+}
+
+
+.input-container {
+    position: relative;
+    width: 100%; /* Ajusta según tus necesidades */
+  }
+  
+  .search-icon {
+    position: absolute;
+    right: 10px; /* Ajusta la distancia del ícono al borde derecho */
+    top: 50%;
+    transform: translateY(-50%); /* Centra el ícono verticalmente dentro del input */
+    color: gray;
+    font-size: 20px; /* Tamaño del ícono */
+    pointer-events: none; /* Para que no interfiera con la entrada de texto */
+  }
