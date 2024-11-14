@@ -1,0 +1,96 @@
+.collection-card{
+    margin-top: 40px;
+    justify-items: center;
+}
+
+.collection-card > .row{
+    flex-wrap: nowrap;
+    width: 420px;
+}
+
+.lbl-nombre{
+    font-weight: bold;
+}
+
+
+.una-foto{
+    object-fit: cover;
+    width: 500px;
+}
+
+
+.img-left,
+.img-right-1,
+.img-right-2{
+    padding: 0px
+}
+
+.img-left > .una-foto{
+    width: 420px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.col.img-left > .tres-fotos,
+.img-left > .dos-fotos{
+    border-radius: 10px 0px 0px 10px;
+}
+
+.col.img-right-1 > img{
+    border-radius: 0px 10px 10px 0px;
+}
+
+
+.col.img-right-2 > .row > .img-1{
+    border-radius: 0px 10px 0px 0px;
+    border-left: solid white;
+}
+
+.col.img-right-2 > .row > .img-2{
+    border-radius: 0px 0px 10px 0px;
+    border-left: solid white;
+    border-top: solid white;
+}
+
+
+.col.img-left > .dos-fotos,
+.col.img-right-1 > img{
+    height: 250px;
+    object-fit: cover;
+    width: 210px;
+    border-left: solid white;
+}
+
+.img-left img.tres-fotos{
+    width: 320px;
+    height: 250px;
+    object-fit: cover;
+}
+
+
+.img-right-2 > .row > img{
+    height: 125px;
+    width: 117px;
+    object-fit: cover;
+    padding: 0px;
+}
+
+.img-right-2 > .row{
+    width: 150px;
+}
+
+.img-right-2{
+    flex: none;
+    width: 126px;
+    justify-content: center;
+}
+
+.tres-fotos{
+    width: 380px;
+    display: flex;
+}
+
+.lbl-info{
+    color: #aba8a8;
+}

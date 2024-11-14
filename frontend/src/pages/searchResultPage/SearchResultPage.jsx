@@ -34,7 +34,6 @@ const SearchResultPage = () => {
 
     /*
     useEffect(() => {
-        debugger
         state.result.splice(0, parseInt(state.result.length / columnas))
         
         //console.log('SearchResultPage',state.result)

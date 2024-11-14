@@ -21,7 +21,6 @@ const ModalAddToCollection = ({show, closeModal, imageId}) => {
     },[imageId, dispatch])
 
     useEffect(() => {
-        debugger
         setDataCollection(collection.filter(e => e.title.includes(value)))
     },[collection, value])
 

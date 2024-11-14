@@ -159,7 +159,7 @@ export const getAllCollections = (page = 1) => async (dispatch)  => {
       },
     });
     
-    dispatch(setAllCollections({data: response}))
+    dispatch(setAllCollections({data: response.data}))
     
   }catch(error){
     console.log(error)
