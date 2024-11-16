@@ -1,39 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Logo from "../../assets/Logo.svg";
-import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { clearResult } from "../../redux/slices/searchSlice";
-
+import { MainNavBarLogic } from "./MainNavBar.logic";
 import "./mainNavBar.css";
 
 
 const MainNavBar = () => {
-  const [ isClickHome, setIsClickHome ] = useState(false)
-  const state = useSelector(state => state.searchSlice)
-  const dispatch = useDispatch()
-  const location = useLocation();
-  const navigate = useNavigate()
-
-
-  useEffect(() => {
-    if(isClickHome && state.result.length === 0){
-      setIsClickHome(false)
-      navigate('/')
-    }
-  },[state, isClickHome])
-
-  const isActive = (URI) => {
-    return location.pathname === URI ? "active" : ""
-  }
-
-
-  const goToHome = () => {
-    setIsClickHome(true)
-    dispatch(clearResult())    
-  }
-
-
+  const { isActive, goToHome } = MainNavBarLogic()
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">

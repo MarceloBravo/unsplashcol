@@ -1,16 +1,14 @@
 import React from 'react'
+import { CardCollectionPreviewLogic } from './CardCollectionPreview.logic'
 import imgNotFound from '../../assets/image_not_found.png'
-import './collectionPreview.css'
+import './cardCollectionPreview.css'
 
-const CollectionPreview = ({data}) => {
 
-    const capitalCase = (text) => {
-        const label = text.substring(0,1).toUpperCase() + text.substring(1).toLowerCase()
-        return label
-    }
+const CardCollectionPreview = ({data}) => {
+    const { capitalCase, handlerClickCard } = CardCollectionPreviewLogic(data)
 
   return (
-    <div className='col collection-card'>
+    <div className='col collection-card' onClick={() => handlerClickCard()}>
         <div className='row'>
             <div className={'col img-left ' + (data.total_photos <= 1 ? 'una-foto' : (data.total_photos === 2 ? 'dos-fotos' : 'tres-fotos'))}>
                 <img
@@ -49,4 +47,4 @@ const CollectionPreview = ({data}) => {
   )
 }
 
-export default CollectionPreview
+export default CardCollectionPreview

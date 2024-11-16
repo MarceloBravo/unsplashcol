@@ -6,6 +6,7 @@
 .collection-card > .row{
     flex-wrap: nowrap;
     width: 420px;
+    cursor: pointer;
 }
 
 .lbl-nombre{

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
+
 
 .collection-container-page{
     padding: 0px 5%;
@@ -23,7 +23,7 @@
 }
 
 .texto-gradiente {
-    width: 17rem;
+    width: auto;
     font-size: 48px;
     background: url('/src/assets/gradiend-bg@2x.png') no-repeat;
     background-size: 100% 100%;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCollections } from '../../actions/search'
-import CollectionPreview from '../../components/collectionPreview/CollectionPreview'
+import CardCollectionPreview from '../../components/cardCollectionPreview/CardCollectionPreview'
 import './collectionPage.css'
 
 const CollectionPage = () => {
@@ -25,7 +25,7 @@ const CollectionPage = () => {
             <div></div>
         </div>
         {collection && collection.map((elem, key) => 
-            <CollectionPreview
+            <CardCollectionPreview
                 key={key}                
                 data={elem}
             />

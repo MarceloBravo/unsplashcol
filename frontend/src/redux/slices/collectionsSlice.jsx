@@ -3,7 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const CollectionSlice = createSlice({
     name: 'CollectionSlice',
 
-    initialState: {inCollection: [], notInCollection: [], allCollections:[], reload: false},
+    initialState: {
+            inCollection: [], 
+            notInCollection: [], 
+            allCollections:[], 
+            reload: false
+        },
 
     reducers: {
         setAllCollections: (state, action) => {
@@ -63,5 +68,14 @@ export const CollectionSlice = createSlice({
     }
 })
 
-export const { setInCollection, setNotInCollection, clearInCollection, clearNotInCollection, setRemoveFromCollection, setAddToCollection, setAllCollections, setReload} = CollectionSlice.actions
+export const { 
+    setInCollection, 
+    setNotInCollection, 
+    clearInCollection, 
+    clearNotInCollection, 
+    setRemoveFromCollection, 
+    setAddToCollection, 
+    setAllCollections,
+    setReload
+} = CollectionSlice.actions
 export default CollectionSlice.reducer

@@ -22,14 +22,6 @@ const ImgCard = (props) => {
         alt={img.description}
         className="card-img-top"
       />
-      {/*
-      <div className="card-body">
-        <h5 className="card-title">{img.alt_description}</h5>
-        <p className="card-text">
-          {img.description}
-        </p>
-      </div>
-      */}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import MainNavBar from '../components/MainNavBar/MainNavBar.jsx'
 import SearchResultPage from '../pages/searchResultPage/SearchResultPage.jsx'
 import ImagesDetailPage from '../pages/imagesDetail/ImagesDetailPage.jsx'
 import CollectionPage from '../pages/collectionPage/CollectionPage.jsx'
+import CollectionPhotosPage from '../pages/collectionPhotosPage/CollectionPhotosPage.jsx'
 
 const RoutesApp = () => {
     const [ isLogued, setIsLogued ] = useState(false)
@@ -21,6 +22,7 @@ const RoutesApp = () => {
                         <Route exact path="/search_result" element={<PublicRoutes element={<SearchResultPage/>} auth={isLogued}/>}/>
                         <Route exact path="/image_detail" element={<PublicRoutes element={<ImagesDetailPage/>} auth={isLogued}/>}/>
                         <Route exact path="/collections" element={<PublicRoutes element={<CollectionPage/>} auth={isLogued}/>}/>
+                        <Route exact path="/collection_photos/:id" element={<PublicRoutes element={<CollectionPhotosPage/>} auth={isLogued}/>}/>
                     </Routes>
                 </BrowserRouter>
             )

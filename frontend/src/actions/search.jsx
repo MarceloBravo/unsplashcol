@@ -3,6 +3,7 @@ import { setResult } from '../redux/slices/searchSlice'
 import { setMessage } from '../redux/slices/errorSlices';
 import { setAddToCollection, setInCollection, setNotInCollection, setRemoveFromCollection, setReload, setAllCollections} from '../redux/slices/collectionsSlice';
 import { UNSPLASH_ACCESS_KEY } from '../shared/constantes.js'
+import { setCollectionPhotos } from '../redux/slices/selectedCollectionSlice.jsx';
 export const ACCESS_TOKEN = 'mxCLrQITsENlZrtxuvG09ri8hXGZvpWILVD8VXYlDoQ'
 
 export const search = (value) => async (dispatch) => {
@@ -164,6 +165,25 @@ export const getAllCollections = (page = 1) => async (dispatch)  => {
   }catch(error){
     console.log(error)
     dispatch(setMessage({message:  "Error al obtener las colecciones:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+  }
+}
+
+export const getCollectionPhotos = (id, page=1) => async (dispatch) => {
+  try{
+    const response = await axios.get(`https://api.unsplash.com/collections/${id}/photos`, {
+      params: {
+        per_page: 20, 
+        page
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`
+      },
+    });
+    
+    dispatch(setCollectionPhotos({collectionPhotos: response.data}))
+  }catch(error){
+    console.log(error)
+    dispatch(setMessage({message:  "Error al obtener las fotos de la colección:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
   }
 }
 

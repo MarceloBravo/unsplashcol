@@ -3,6 +3,7 @@ import searchSlice from './slices/searchSlice'
 import messageSlice from './slices/errorSlices'
 import SelectedImageSlice from './slices/selectedImageSlice'
 import CollectionSlice from './slices/collectionsSlice'
+import SelectedCollectionSlice from './slices/selectedCollectionSlice'
 
 
 export default configureStore({
@@ -10,7 +11,8 @@ export default configureStore({
         searchSlice,
         messageSlice,
         SelectedImageSlice,
-        CollectionSlice
+        CollectionSlice,
+        SelectedCollectionSlice
     }
 })
 

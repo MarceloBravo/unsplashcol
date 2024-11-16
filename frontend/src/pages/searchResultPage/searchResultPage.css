@@ -34,9 +34,3 @@
     font-size: 20px; /* Tamaño del ícono */
     pointer-events: none; /* Para que no interfiera con la entrada de texto */
 }
-
-.container-results{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}

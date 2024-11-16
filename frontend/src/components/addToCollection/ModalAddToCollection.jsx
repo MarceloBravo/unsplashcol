@@ -1,64 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addImageToCollection, createCollection, getUserCollections } from '../../actions/search'
+import React from 'react'
 import RowGridCollection from '../rowGridCollection/RowGridCollection'
+import { ModalAddToCollectionLogic } from './ModalAddToCollection.logic'
 import plusIcon from '../../assets/Plus.svg'
-
 import './addToCollection.css'
 
-
 const ModalAddToCollection = ({show, closeModal, imageId}) => {
-    const collection = useSelector(state => state.CollectionSlice.notInCollection)
-    //const reload = useSelector(state => state.CollectionSlice.reload)
-    const [ value, setValue ] = useState('')
-    const [ idActiveRow, setIdActiveRow ] = useState(null)
-    //const [ idCollection, setIdCollection ] = useState(null)
-    const [ dataCollection, setDataCollection ] = useState(null)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getUserCollections(imageId, false))
-    },[imageId, dispatch])
-
-    useEffect(() => {
-        setDataCollection(collection.filter(e => e.title.includes(value)))
-    },[collection, value])
-
-    /*
-    useEffect(() => {        
-        if(reload){
-            setTimeout(() => {
-                    dispatch(getUserCollections(imageId, true))
-                    dispatch(getUserCollections(imageId, false))
-                }
-            , 3000)
-        }
-    },[reload])
-    */
-
-    const handlerChangeValue = (e) => {
-        setValue(e.target.value)
-    }
-    
-    const handlerSetActive = (id) => {
-        setIdActiveRow(id)
-    }
-
-    const handlerGridAction = (id) => {
-        //setIdCollection(id)
-        dispatch(addImageToCollection(id, imageId))
-        closeModal()
-    }
-
-    const handlerNewCollection = () => {
-        if(value !== ''){
-            dispatch(createCollection(value))
-        }else{
-            console.log('Debe ingresar el nombre de la colección')
-        }
-    }
-
-    
+    const { 
+        value, idActiveRow, dataCollection, //Constantes
+        handlerChangeValue, handlerSetActive, handlerGridAction, handlerNewCollection   //funciones
+    } = ModalAddToCollectionLogic(closeModal, imageId)
+   
   return (
     <>
     {show && 
