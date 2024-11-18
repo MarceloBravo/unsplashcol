@@ -1,0 +1,14 @@
+.alert-compomnent{
+    position: relative;
+    right: 0px;
+    z-index: 100;
+}
+
+.rest-time{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    height: 5px;
+    transition: "width 0.1s linear";
+}

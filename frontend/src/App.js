@@ -3,11 +3,14 @@ import RoutesApp from './routes/RoutesApp';
 import store from './redux'
 
 import './App.css';
+import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 
 function App() {
   return (
       <Provider store={store}>
-        <RoutesApp/>
+        <ErrorBoundary>
+          <RoutesApp/>
+        </ErrorBoundary>
       </Provider>
   );
 }

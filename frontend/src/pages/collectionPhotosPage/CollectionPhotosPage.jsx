@@ -4,12 +4,6 @@ import { useSelector } from 'react-redux'
 
 const CollectionPhotosPage = () => {
     const {id, title, cantPhotos, photos } = useSelector(state => state.SelectedCollectionSlice)
-    
-
-    useEffect(() => {
-        console.log('state:',id, title, cantPhotos, photos)
-    },[ id, cantPhotos, photos, title ])
-
 
   return (
     <div className='collection-container-page'>

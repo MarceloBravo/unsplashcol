@@ -7,12 +7,15 @@ import SearchResultPage from '../pages/searchResultPage/SearchResultPage.jsx'
 import ImagesDetailPage from '../pages/imagesDetail/ImagesDetailPage.jsx'
 import CollectionPage from '../pages/collectionPage/CollectionPage.jsx'
 import CollectionPhotosPage from '../pages/collectionPhotosPage/CollectionPhotosPage.jsx'
+import AlertContainer from '../components/alertContainer/AlertContainer.jsx'
 
 const RoutesApp = () => {
+    // eslint-disable-next-line
     const [ isLogued, setIsLogued ] = useState(false)
     
     return (
                 <BrowserRouter>
+                    <AlertContainer />
                     <MainNavBar/>
                     <div className='navbar-space'></div>
                     <Routes>

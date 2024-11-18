@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setResult } from '../redux/slices/searchSlice'
-import { setMessage } from '../redux/slices/errorSlices';
+import { setMessage } from '../redux/slices/messageSlice.jsx';
 import { setAddToCollection, setInCollection, setNotInCollection, setRemoveFromCollection, setReload, setAllCollections} from '../redux/slices/collectionsSlice';
 import { UNSPLASH_ACCESS_KEY } from '../shared/constantes.js'
 import { setCollectionPhotos } from '../redux/slices/selectedCollectionSlice.jsx';
@@ -18,9 +18,12 @@ export const search = (value) => async (dispatch) => {
             Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
           },
         });
+        if(response.data.results.length === 0){
+          dispatch(setMessage({title: 'Error', message:  "No se encontraron imágenes relacionadas con ''" + value + "''. Intenta con otra búsqueda.", type: 'danger'}))
+        }
         dispatch(setResult({result: response.data.results, criteria: value}))
       } catch (error) {
-        dispatch(setMessage({message:  "Error al buscar imágenes:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+        dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
       }
     
 }
@@ -46,7 +49,7 @@ export const getUserCollections = (imageId = null, imageInCollection = false) =>
     
   }catch(error){
     console.log(error)
-    dispatch(setMessage({message:  "Error al obtener las colecciones:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+    dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
   }
 }
 
@@ -75,16 +78,16 @@ export const downloadImage = (photoId, imageName) => async (dispatch) => {
     link.click();
     document.body.removeChild(link);
 
-    dispatch(setMessage({message:"Imagen descargada correctamente desde Unsplash.", code: 200, detail: null, type: 'success'}))
+    dispatch(setMessage({title: 'Atención', message:  "Imagen descargada correctamente desde Unsplash.", type: 'success'}))
 
   }catch(error){
-    dispatch(setMessage({message:  "Error al obtener las colecciones:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+    dispatch(setMessage({title: 'Error', message:  "Error al descargar la imágen:" + error.message, type: 'danger'}))
   }
 }
 
 export const addImageToCollection = (collectionId, imageId) => async (dispatch) => {
   try{
-        const response = await axios.post(`https://api.unsplash.com/collections/${collectionId}/add`,      
+        await axios.post(`https://api.unsplash.com/collections/${collectionId}/add`,      
           { photo_id: imageId },
           {
               headers: {
@@ -92,19 +95,18 @@ export const addImageToCollection = (collectionId, imageId) => async (dispatch) 
               }
           }
       );
-    
-      dispatch(setMessage({message:  "Imagen agregada a la colección exitosamente:", code: 200, detail: response.data, type: 'success'}));    
+      dispatch(setMessage({title: 'Atención', message:  "La imagen ha sido agregada de la colección exitosamente.", type: 'success'}))
       
       dispatch(setAddToCollection({collectionId}))
       
   }catch(error){
-    dispatch(setMessage({message:  "Error al agregar la imágen a la colección:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}));
+    dispatch(setMessage({title: 'Error', message:  "Error al agregar la imágen a la colección:" + error.message, type: 'danger'}))
   }
 }
 
 export const removeImageFromCollection = (collectionId, imageId) => async (dispatch) => {
   try{
-        const response = await axios.delete(`https://api.unsplash.com/collections/${collectionId}/remove`,
+        await axios.delete(`https://api.unsplash.com/collections/${collectionId}/remove`,
           {
               headers: {
                   Authorization: `Bearer ${ACCESS_TOKEN}`
@@ -114,19 +116,18 @@ export const removeImageFromCollection = (collectionId, imageId) => async (dispa
               }
           }
       );
-      dispatch(setMessage({message:  "Imagen eliminada de la colección exitosamente:", code: 200, detail: response.data, type: 'success'}));    
-      
+      dispatch(setMessage({title: 'Atención', message:  "La imagen ha sido eliminada de la colección.", type: 'success'}))
       dispatch(setRemoveFromCollection({collectionId}))
 
   }catch(error){
     console.log(error)
-    dispatch(setMessage({message:  "Error al intentar eliminar la imágen de la colección:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}));
+    dispatch(setMessage({title: 'Error', message:  "Error al intentar eliminar la imágen de la colección:" + error.message, type: 'danger'}))
   }
 }
 
 export const createCollection = (title, description = '', isPrivate = false) => async (dispatch) => {
   try{
-    const response = await axios.post('https://api.unsplash.com/collections',
+    await axios.post('https://api.unsplash.com/collections',
       {
           title: title,
           description: description,
@@ -140,11 +141,11 @@ export const createCollection = (title, description = '', isPrivate = false) => 
           }
       }
     );
-    dispatch(setMessage({message:  "Colección creada exitosamente:", code: 200, detail: response.data, type: 'success'}));    
+    dispatch(setMessage({title: 'Atención', message:  "Colección creada exitosamente", type: 'success'}))
     dispatch(setReload({reload: true}))
   }catch(error){
-    console.log("Error al crear la colección:", error)
-    dispatch(setMessage({message: "Error al crear la colección:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}));
+    console.log(error)
+    dispatch(setMessage({title: 'Error', message:  "Error al crear la colección:" + error.message, type: 'danger'}))
   }
 }
 
@@ -164,7 +165,7 @@ export const getAllCollections = (page = 1) => async (dispatch)  => {
     
   }catch(error){
     console.log(error)
-    dispatch(setMessage({message:  "Error al obtener las colecciones:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+    dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
   }
 }
 
@@ -183,7 +184,7 @@ export const getCollectionPhotos = (id, page=1) => async (dispatch) => {
     dispatch(setCollectionPhotos({collectionPhotos: response.data}))
   }catch(error){
     console.log(error)
-    dispatch(setMessage({message:  "Error al obtener las fotos de la colección:" + error.message, code: error.code, detail: JSON.stringify(error), type: 'danger'}))
+    dispatch(setMessage({title: 'Error', message:  "Error al obtener las fotos de la colección:" + error.message, type: 'danger'}))
   }
 }
 

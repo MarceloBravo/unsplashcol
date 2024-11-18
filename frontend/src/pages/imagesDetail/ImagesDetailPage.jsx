@@ -1,59 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import RowGridCollection from '../../components/rowGridCollection/RowGridCollection'
-import { downloadImage, getUserCollections, removeImageFromCollection } from '../../actions/search'
 import ModalAddToCollection from '../../components/addToCollection/ModalAddToCollection'
-
+import { ImagesDetailPageLogic } from './ImagesDetailPage.logic'
 import downArrowIcon from '../../assets/down arrow.svg'
 import plusIcon from '../../assets/Plus.svg'
 import removeIcon from '../../assets/Remove.svg'
-
 import './imagesDetailPage.css'
 
 
+
 const ImagesDetailPage = () => {
-    const [ idActiveRow, setIdActiveRow ] = useState(null)
-    const [ showModalAddToCollection, setshowModalAddToCollection ] = useState(false)
-    const image = useSelector(state => state.SelectedImageSlice.image)
-    const collections = useSelector(state => state.CollectionSlice.inCollection)
-    //const reload = useSelector(state => state.CollectionSlice.reload)
-    const dispatch = useDispatch()
+    const { 
+            idActiveRow, 
+            showModalAddToCollection, 
+            image, 
+            collections, 
+            getMonthAndYear, 
+            handlerSetActive, 
+            handlerDownload, 
+            handlerRemoveAction, 
+            handlerAddToCollection, 
+            handlerCloseModal
+        } = ImagesDetailPageLogic()
     
-    useEffect(() => {
-        dispatch(getUserCollections(image.id, true))
-    },[image, dispatch])
-
-    useEffect(() => {
-        console.log(collections.length, collections)
-    },[collections])
-
-    const getMonthAndYear = () => {
-        const fecha = new Date(image.created_at)
-        const nombreMes = fecha.toLocaleString('es-ES', { month: 'long' }); // 'long' para el nombre completo del mes
-        return nombreMes + ' ' + fecha.getDate() + ', ' + fecha.getFullYear()
-    }
-
-    const handlerSetActive = (id) => {
-        setIdActiveRow(id)
-    }
-
-    const handlerDownload = () => {
-        const imageName = (image.description ? image.description  : 'unsplash-image')
-        dispatch(downloadImage(image.id, imageName))
-    }
-
-    const handlerRemoveAction = (id) => {
-        dispatch(removeImageFromCollection(id, image.id))
-    }
-
-    const handlerAddToCollection = () => {
-        setshowModalAddToCollection(!showModalAddToCollection)
-    }
-
-    const handlerCloseModal = () => {
-        setshowModalAddToCollection(false)
-    }
-
   return (
     <>
         {image && <ModalAddToCollection show={showModalAddToCollection} closeModal={handlerCloseModal} imageId={image.id}/>}
