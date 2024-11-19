@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addImageToCollection, createCollection, getUserCollections } from '../../actions/search'
+import { setMessage } from '../../redux/slices/messageSlice'
 
 export const ModalAddToCollectionLogic = (closeModal, imageId) => {
     const collection = useSelector(state => state.CollectionSlice.notInCollection)
@@ -34,7 +35,7 @@ export const ModalAddToCollectionLogic = (closeModal, imageId) => {
         if(value !== ''){
             dispatch(createCollection(value))
         }else{
-            console.log('Debe ingresar el nombre de la colección')
+            dispatch(setMessage({title: 'Error', message:  "Debe ingresar el nombre de la colección.", type: 'danger'}))
         }
     }
     

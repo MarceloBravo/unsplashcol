@@ -1,3 +1,4 @@
+import React from 'react';
 import { Provider } from 'react-redux';
 import RoutesApp from './routes/RoutesApp';
 import store from './redux'

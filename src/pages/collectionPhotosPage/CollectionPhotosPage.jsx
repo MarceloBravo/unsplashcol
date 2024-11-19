@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ImagesCollections from '../../components/imagesCollections/ImagesCollections'
 import { useSelector } from 'react-redux'
 
 const CollectionPhotosPage = () => {
-    const {id, title, cantPhotos, photos } = useSelector(state => state.SelectedCollectionSlice)
+    const {title, cantPhotos, photos } = useSelector(state => state.SelectedCollectionSlice)
 
   return (
     <div className='collection-container-page'>

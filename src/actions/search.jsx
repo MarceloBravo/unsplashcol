@@ -4,6 +4,7 @@ import { setMessage } from '../redux/slices/messageSlice.jsx';
 import { setAddToCollection, setInCollection, setNotInCollection, setRemoveFromCollection, setReload, setAllCollections} from '../redux/slices/collectionsSlice';
 import { UNSPLASH_ACCESS_KEY } from '../shared/constantes.js'
 import { setCollectionPhotos } from '../redux/slices/selectedCollectionSlice.jsx';
+import { setImage } from '../redux/slices/selectedImageSlice.jsx';
 export const ACCESS_TOKEN = 'mxCLrQITsENlZrtxuvG09ri8hXGZvpWILVD8VXYlDoQ'
 
 export const search = (value) => async (dispatch) => {
@@ -26,6 +27,25 @@ export const search = (value) => async (dispatch) => {
         dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
       }
     
+}
+
+export const getPhoto = (id) => async (dispatch) => {
+  try {
+      const response = await axios.get(`https://api.unsplash.com/photos/${id}`, {
+        params: {id},
+        headers: {
+          Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+        },
+      });
+      if(!response.data){
+        dispatch(setMessage({title: 'Error', message:  "No se encontró la imágen.", type: 'danger'}))
+      }else{
+        dispatch(setImage({image: response.data}))
+      }
+    } catch (error) {
+      dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
+    }
+  
 }
 
 export const getUserCollections = (imageId = null, imageInCollection = false) => async (dispatch)  => {
@@ -160,7 +180,6 @@ export const getAllCollections = (page = 1) => async (dispatch)  => {
         Authorization: `Bearer ${ACCESS_TOKEN}`
       },
     });
-    
     dispatch(setAllCollections({data: response.data}))
     
   }catch(error){

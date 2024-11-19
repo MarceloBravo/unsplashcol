@@ -1,5 +1,3 @@
-
-
 .collection-container-page{
     padding: 0px 5%;
     width: 100%;
@@ -25,13 +23,13 @@
 .texto-gradiente {
     width: auto;
     font-size: 48px;
-    background: url('/src/assets/gradiend-bg@2x.png') no-repeat;
+    background: url('/gradiend-bg@2x.png') no-repeat;
     background-size: 100% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-mask-image: url('/src/assets/gradiend-bg@2x.png');
-    mask-image: url('/src/assets/gradiend-bg@2x.png');
+    -webkit-mask-image: url('/gradiend-bg@2x.png');
+    mask-image: url('/gradiend-bg@2x.png');
 }
   
 

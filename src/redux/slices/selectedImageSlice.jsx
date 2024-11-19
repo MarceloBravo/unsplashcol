@@ -7,7 +7,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
     reducers: {
         setImage: (state, action) => {
-            state.image = action.payload
+            state.image = action.payload.image
         },
 
         clearImage: (state) => {
