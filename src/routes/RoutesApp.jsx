@@ -8,6 +8,7 @@ import ImagesDetailPage from '../pages/imagesDetail/ImagesDetailPage.jsx'
 import CollectionPage from '../pages/collectionPage/CollectionPage.jsx'
 import CollectionPhotosPage from '../pages/collectionPhotosPage/CollectionPhotosPage.jsx'
 import AlertContainer from '../components/alertContainer/AlertContainer.jsx'
+import SpinnerComponent from '../components/spinnerComponent/SpinnerComponent.jsx'
 
 const RoutesApp = () => {
     // eslint-disable-next-line
@@ -16,6 +17,7 @@ const RoutesApp = () => {
     return (
                 <BrowserRouter>
                     <AlertContainer />
+                    <SpinnerComponent/>
                     <MainNavBar/>
                     <div className='navbar-space'></div>
                     <Routes>

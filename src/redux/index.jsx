@@ -4,6 +4,7 @@ import messageSlice from './slices/messageSlice'
 import SelectedImageSlice from './slices/selectedImageSlice'
 import CollectionSlice from './slices/collectionsSlice'
 import SelectedCollectionSlice from './slices/selectedCollectionSlice'
+import spinnerSlice from './slices/spinnerSlice'
 
 
 export default configureStore({
@@ -12,7 +13,8 @@ export default configureStore({
         messageSlice,
         SelectedImageSlice,
         CollectionSlice,
-        SelectedCollectionSlice
+        SelectedCollectionSlice,
+        spinnerSlice
     }
 })
 

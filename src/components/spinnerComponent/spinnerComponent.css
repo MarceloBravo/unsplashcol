@@ -1,0 +1,36 @@
+.spinner-background{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #ffffffdb;
+    z-index: 100;
+}
+
+.spinner-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.spinner-border{
+    top: 47.5%;
+    left: 46.5%;
+    --bs-spinner-width: 5rem;
+    --bs-spinner-height: 5rem;
+    --bs-spinner-border-width: 0.4em;
+    border-color: #0a3d81;
+    border-right-color: #fefefe00;
+}
+
+.spinner-label-container{
+    display: contents;
+}
+
+.spinner-label-1{
+    font-weight: bold;
+}
