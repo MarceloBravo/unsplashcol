@@ -7,8 +7,6 @@ import plusIcon from '../../assets/Plus.svg'
 import removeIcon from '../../assets/Remove.svg'
 import './imagesDetailPage.css'
 
-
-
 const ImagesDetailPage = () => {
     const { 
             idActiveRow, 
@@ -22,10 +20,13 @@ const ImagesDetailPage = () => {
             handlerAddToCollection, 
             handlerCloseModal
         } = ImagesDetailPageLogic()
+
+        console.log('image => ',image ? image : 'sin imagen')
     
   return (
     <>
         {image && <ModalAddToCollection show={showModalAddToCollection} closeModal={handlerCloseModal} imageId={image.id}/>}
+        {image && 
         <div className='row container-details-image'>
             <div className='col'>
                 {image && <img 
@@ -78,6 +79,7 @@ const ImagesDetailPage = () => {
                 </div>
             </div>
         </div>
+    }
     </>
   )
 }

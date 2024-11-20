@@ -7,7 +7,7 @@ export const spinnerSlice = createSlice({
 
     reducers: {
         setShowSpinner: (state, action) => {            
-            state.visible = action.payload.visible
+            state.visible = true
             state.label1 = action.payload?.label1 ?? null
             state.label2 = action.payload?.label2 ?? null
         },

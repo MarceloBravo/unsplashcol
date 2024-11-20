@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-//import { setImage } from "../../redux/slices/selectedImageSlice";
+import { getPhoto } from "../../actions/search";
 
 import './imgCard.css'
-import { getPhoto } from "../../actions/search";
+
 
 const ImgCard = (props) => {
   const selectedImage = useSelector(state => state.SelectedImageSlice.image)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setMessage } from '../../redux/slices/messageSlice';
+//import { setMessage } from '../../redux/slices/messageSlice';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class ErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     this.setState({ error, errorInfo });
     // Puedes registrar el error en un servicio externo si es necesario
-    dispatchEvent(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + errorInfo, type: 'danger'}))
+    //dispatchEvent(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + errorInfo, type: 'danger'}))
     console.error("ErrorBoundary atrapó un error:", error, errorInfo);
   }
 

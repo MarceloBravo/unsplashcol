@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { setResult } from '../redux/slices/searchSlice'
 import { setMessage } from '../redux/slices/messageSlice.jsx';
-import { setAddToCollection, setInCollection, setNotInCollection, setRemoveFromCollection, setReload, setAllCollections} from '../redux/slices/collectionsSlice';
+import { setInCollection, setNotInCollection, setAllCollections, setRefresh} from '../redux/slices/collectionsSlice';
 import { UNSPLASH_ACCESS_KEY } from '../shared/constantes.js'
 import { setCollectionPhotos } from '../redux/slices/selectedCollectionSlice.jsx';
 import { setImage } from '../redux/slices/selectedImageSlice.jsx';
+import { setShowSpinner } from '../redux/slices/spinnerSlice.jsx';
 export const ACCESS_TOKEN = 'mxCLrQITsENlZrtxuvG09ri8hXGZvpWILVD8VXYlDoQ'
 
 export const search = (value) => async (dispatch) => {
@@ -24,7 +25,12 @@ export const search = (value) => async (dispatch) => {
         }
         dispatch(setResult({result: response.data.results, criteria: value}))
       } catch (error) {
-        dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
+        if(error.status === 403){
+          dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+        }else{
+          dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
+        }
+        
       }
     
 }
@@ -43,33 +49,38 @@ export const getPhoto = (id) => async (dispatch) => {
         dispatch(setImage({image: response.data}))
       }
     } catch (error) {
-      dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
+      if(error.status === 403){
+        dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+      }else{
+        dispatch(setMessage({title: 'Error', message:  "Error al buscar imágenes" + error.message, type: 'danger'}))
+      }
     }
   
 }
 
-export const getUserCollections = (imageId = null, imageInCollection = false) => async (dispatch)  => {
+export const getUserCollections = (imageId = null) => async (dispatch)  => {
   try{
-    const response = await axios.get('https://api.unsplash.com/users/marcelo_b/collections', {
-      params: {
-        per_page: 30, 
-        page: 1
-      },
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`
-      },
-    });
-    if(imageInCollection === false){
+      const response = await axios.get('https://api.unsplash.com/users/marcelo_b/collections', {
+        params: {
+          per_page: 30, 
+          page: 1
+        },
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`
+        },
+      });
+
       const notInCollection = response.data.filter(elem => elem.preview_photos === null || elem.preview_photos.find(e => e.id ===  imageId) === undefined)
-      dispatch(setNotInCollection({notInCollection}))
-    }else{
       const inCollection = response.data.filter(elem => elem.preview_photos !== null && elem.preview_photos.find(e => e.id ===  imageId) !== undefined)
+      dispatch(setNotInCollection({notInCollection}))
       dispatch(setInCollection({inCollection}))
-    }
     
   }catch(error){
-    console.log(error)
-    dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -101,7 +112,11 @@ export const downloadImage = (photoId, imageName) => async (dispatch) => {
     dispatch(setMessage({title: 'Atención', message:  "Imagen descargada correctamente desde Unsplash.", type: 'success'}))
 
   }catch(error){
-    dispatch(setMessage({title: 'Error', message:  "Error al descargar la imágen:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al descargar la imágen:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -116,11 +131,15 @@ export const addImageToCollection = (collectionId, imageId) => async (dispatch) 
           }
       );
       dispatch(setMessage({title: 'Atención', message:  "La imagen ha sido agregada de la colección exitosamente.", type: 'success'}))
-      
-      dispatch(setAddToCollection({collectionId}))
+      dispatch(setRefresh({refresh: true}))
+      dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto podría tardar unos segundos...'}))
       
   }catch(error){
-    dispatch(setMessage({title: 'Error', message:  "Error al agregar la imágen a la colección:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al agregar la imágen a la colección:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -136,12 +155,17 @@ export const removeImageFromCollection = (collectionId, imageId) => async (dispa
               }
           }
       );
+      //dispatch(setRemoveFromCollection({collectionId}))
       dispatch(setMessage({title: 'Atención', message:  "La imagen ha sido eliminada de la colección.", type: 'success'}))
-      dispatch(setRemoveFromCollection({collectionId}))
+      dispatch(setRefresh({refresh: true}))
+      dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto podría tardar unos segundos...'}))
 
   }catch(error){
-    console.log(error)
-    dispatch(setMessage({title: 'Error', message:  "Error al intentar eliminar la imágen de la colección:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al intentar eliminar la imágen de la colección:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -162,10 +186,14 @@ export const createCollection = (title, description = '', isPrivate = false) => 
       }
     );
     dispatch(setMessage({title: 'Atención', message:  "Colección creada exitosamente", type: 'success'}))
-    dispatch(setReload({reload: true}))
+    dispatch(setRefresh({refresh: true}))
+    dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto podría tardar unos segundos...'}))
   }catch(error){
-    console.log(error)
-    dispatch(setMessage({title: 'Error', message:  "Error al crear la colección:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al crear la colección:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -183,8 +211,11 @@ export const getAllCollections = (page = 1) => async (dispatch)  => {
     dispatch(setAllCollections({data: response.data}))
     
   }catch(error){
-    console.log(error)
-    dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al obtener las colecciones:" + error.message, type: 'danger'}))
+    }
   }
 }
 
@@ -202,8 +233,11 @@ export const getCollectionPhotos = (id, page=1) => async (dispatch) => {
     
     dispatch(setCollectionPhotos({collectionPhotos: response.data}))
   }catch(error){
-    console.log(error)
-    dispatch(setMessage({title: 'Error', message:  "Error al obtener las fotos de la colección:" + error.message, type: 'danger'}))
+    if(error.status === 403){
+      dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))
+    }else{
+      dispatch(setMessage({title: 'Error', message:  "Error al obtener las fotos de la colección:" + error.message, type: 'danger'}))
+    }
   }
 }
 

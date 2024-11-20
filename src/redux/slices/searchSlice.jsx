@@ -10,6 +10,7 @@ export const searchSlice = createSlice({
             state.result = action.payload.result
             state.criteria = action.payload.criteria
         },
+        
         clearResult: (state) => {
             state.result = []
             state.criteria = ''

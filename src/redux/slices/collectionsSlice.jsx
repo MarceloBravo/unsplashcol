@@ -6,8 +6,8 @@ export const CollectionSlice = createSlice({
     initialState: {
             inCollection: [], 
             notInCollection: [], 
-            allCollections:[], 
-            reload: false
+            allCollections:[],
+            refresh: false
         },
 
     reducers: {
@@ -19,10 +19,15 @@ export const CollectionSlice = createSlice({
             state.inCollection = action.payload.inCollection
         },
 
+        setRefresh: (state, action) => {
+            state.refresh = action.payload.refresh
+        },
+
         setNotInCollection: (state, action) => {
             state.notInCollection = action.payload.notInCollection
         },
 
+        /*
         setRemoveFromCollection: (state, action) => {
             const elem = state.inCollection.reduce((acum,e) => 
                 {
@@ -50,20 +55,11 @@ export const CollectionSlice = createSlice({
             state.inCollection.push(elem)
             state.notInCollection = state.notInCollection.filter(e => e.id !== action.payload.collectionId)
         },
+        */
 
-
-        clearInCollection: (state) => {
+        resetCollections: (state) => {
             state.inCollection = []
-            state.reload = false
-        },
-
-        clearNotInCollection: (state) => {
             state.notInCollection = []
-            state.reload = false
-        },
-
-        setReload:(state, action) =>{
-            state.reload = action.payload.reload
         }
     }
 })
@@ -71,11 +67,11 @@ export const CollectionSlice = createSlice({
 export const { 
     setInCollection, 
     setNotInCollection, 
-    clearInCollection, 
-    clearNotInCollection, 
-    setRemoveFromCollection, 
-    setAddToCollection, 
+    resetCollections, 
+    //setRemoveFromCollection, 
+    //setAddToCollection, 
     setAllCollections,
-    setReload
+    setReload,
+    setRefresh
 } = CollectionSlice.actions
 export default CollectionSlice.reducer
