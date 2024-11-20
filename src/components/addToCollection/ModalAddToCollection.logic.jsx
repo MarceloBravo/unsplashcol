@@ -40,7 +40,7 @@ export const ModalAddToCollectionLogic = (closeModal, imageId) => {
     //Busca una colección con el texto ingresado en el cuadro de texto, cada vez que el cuadro de texto cambia su valor
     useEffect(() => {
         if(prevCollection !== null && JSON.stringify(prevCollection) === JSON.stringify(collection)){
-            dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto podría tardar unos segundos...'}))
+            dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto está tardando más de los esperado, pero ya falta poco...'}))
         }else{
             setPrevCollection(null)
             setDataCollection(collection.filter(e => e.title.includes(value)))

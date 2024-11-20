@@ -3,6 +3,9 @@ import { ImagesCollectionsLogic } from "./ImagesCollections.logic";
 import ImgCard from "../imgCard/ImgCard";
 import "./imagesCollections.css";
 
+
+//Coponente que muestra una grilla de imágenes utilizado en las páginas de resultado de búsqueda de imágenes y 
+//en la página de imágenes pertenecientes a una colección
 const ImagesCollections = ({data, clear = false}) => {
   const { images } = ImagesCollectionsLogic(data, clear)
 

@@ -5,7 +5,8 @@ import { getPhoto } from "../../actions/search";
 
 import './imgCard.css'
 
-
+//Componente para mostrar que muestra la foto dentro del componente imagenesCollection, en las páginas de 
+//resultado de búsqueda y imagenes de la colección
 const ImgCard = (props) => {
   const selectedImage = useSelector(state => state.SelectedImageSlice.image)
   const [ redirect, setRedirect ] = useState(false)
@@ -15,12 +16,14 @@ const ImgCard = (props) => {
 
   useEffect(() => {
     if(selectedImage && redirect){
-      navigate('/image_detail')
+      navigate('/image_detail') //Redirige a la página de detalle de la imagen
       setRedirect(false)
     }
     // eslint-disable-next-line
   },[selectedImage])
 
+  //Al hacer click sobre el componente, configura la constante redirect para redireccionar 
+  //a la página de detalle de la imagen, a penas se reciban desde el store los datos de la imágen seleccionada
   const handlerDetailImageClick = (id) => {
     setRedirect(true)
     dispatch(getPhoto(id))

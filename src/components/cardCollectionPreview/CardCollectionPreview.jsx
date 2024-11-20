@@ -3,7 +3,7 @@ import { CardCollectionPreviewLogic } from './CardCollectionPreview.logic'
 import imgNotFound from '../../assets/image_not_found.png'
 import './cardCollectionPreview.css'
 
-
+//Muestra uuna tarjeta, por cada colección, con 1 2 ó 3 vistas previas de las imágenes contenidas en la colección
 const CardCollectionPreview = ({data}) => {
     const { capitalCase, handlerClickCard } = CardCollectionPreviewLogic(data)
 
@@ -11,7 +11,7 @@ const CardCollectionPreview = ({data}) => {
     <div className='col collection-card' onClick={() => handlerClickCard()}>
         <div className='row'>
             <div className={'col img-left ' + (data.total_photos <= 1 ? 'una-foto' : (data.total_photos === 2 ? 'dos-fotos' : 'tres-fotos'))}>
-                <img
+                <img5
                     className={data.total_photos <= 1 ? 'una-foto' : (data.total_photos === 2 ? 'dos-fotos' : 'tres-fotos')}
                     src={data.preview_photos ? data.preview_photos[0].urls.small : imgNotFound}
                     alt={data.title}

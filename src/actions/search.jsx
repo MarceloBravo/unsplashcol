@@ -231,7 +231,7 @@ export const getCollectionPhotos = (id, page=1) => async (dispatch) => {
       },
     });
     
-    dispatch(setCollectionPhotos({collectionPhotos: response.data}))
+    dispatch(setCollectionPhotos({photos: response.data}))
   }catch(error){
     if(error.status === 403){
       dispatch(setMessage({title: 'Error', message:  "Se ha excedido el máximo de peticiones. Intentalo más tarde.", type: 'danger'}))

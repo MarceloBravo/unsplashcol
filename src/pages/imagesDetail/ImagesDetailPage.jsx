@@ -7,6 +7,7 @@ import plusIcon from '../../assets/Plus.svg'
 import removeIcon from '../../assets/Remove.svg'
 import './imagesDetailPage.css'
 
+//Página con el detalle de la imágen seleccionada por el usuario
 const ImagesDetailPage = () => {
     const { 
             idActiveRow, 
@@ -21,8 +22,6 @@ const ImagesDetailPage = () => {
             handlerCloseModal
         } = ImagesDetailPageLogic()
 
-        console.log('image => ',image ? image : 'sin imagen')
-    
   return (
     <>
         {image && <ModalAddToCollection show={showModalAddToCollection} closeModal={handlerCloseModal} imageId={image.id}/>}

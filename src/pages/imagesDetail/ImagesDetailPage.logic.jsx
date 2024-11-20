@@ -20,13 +20,16 @@ export const ImagesDetailPageLogic = () => {
         if(image){
             dispatch(getUserCollections(image.id))    //Obtiene la colección de imágenes donde la imágen se encuentra agregada (argumento true)
         }else{
-            navigate('/')
+            navigate('/')   //Si no se recibe una imágen, entonces se redirecciona a la págima home
         }
-        dispatch(clearResult())
+        dispatch(clearResult()) //Borra el resultado de la búsqueda y el criterio de búsqueda del store (searchSlice)
         // eslint-disable-next-line
     },[image])
 
 
+    //Se encarga de actualizar el listado de colecciones en las cuales la imágenes se encuentra agregada
+    //Se realiza con un retraso de 5 segundos ya que el API de unsplash no actualiza inmediatamente las colecciones
+    //Este hook sólo se ejecuta si el spinner se encuentra visible
     useEffect(() => {
         if(visible){
             const timer = setTimeout(() => {
@@ -39,10 +42,13 @@ export const ImagesDetailPageLogic = () => {
         // eslint-disable-next-line
     }, [visible])
 
-
+    //Compara el contenido de las colección de imágenes antes de agregar la imágen y con el listado recibido desde unsplash 
+    //después de haber agregado la imágen a una colección, si el contenido es igual, quiere significa que unsplash no ha 
+    //actualizado aún las colecciones, con lo que se muestra nuevamente el spinner para hacer una nueva petición de colecciones
+    //desde unsplash
     useEffect(() => {
         if(prevCollection !== null && JSON.stringify(prevCollection) === JSON.stringify(collections)){
-            dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto podría tardar unos segundos...'}))
+            dispatch(setShowSpinner({label1: 'Estamos actualizando el listado de colecciones.', label2: 'Esto está tardando más de los esperado, pero ya falta poco...'}))
         }
         // eslint-disable-next-line
     },[collections])

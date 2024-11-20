@@ -14,7 +14,6 @@ import { createSlice } from "@reduxjs/toolkit";
         setData: (state, action) => {
             state.id = action.payload.id
             state.cantPhotos = action.payload.cantPhotos
-            state.photos = action.payload.photos
             state.title = action.payload.title
         },
 

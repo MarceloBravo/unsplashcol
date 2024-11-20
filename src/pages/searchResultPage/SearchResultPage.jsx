@@ -4,6 +4,8 @@ import { SearchResultPageLogic } from './SearchResultPage.logic'
 import searchIcon from '../../assets/Search.svg'
 import './searchResultPage.css'
 
+
+//Página con el resultado de la búsqueda
 const SearchResultPage = () => {
     const { divStyle, state, images, criteria, handlerInputSearchChange, handlerInputCriteriaKeyDown} = SearchResultPageLogic()
     

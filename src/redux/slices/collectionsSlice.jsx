@@ -27,36 +27,6 @@ export const CollectionSlice = createSlice({
             state.notInCollection = action.payload.notInCollection
         },
 
-        /*
-        setRemoveFromCollection: (state, action) => {
-            const elem = state.inCollection.reduce((acum,e) => 
-                {
-                    if(e.id === action.payload.collectionId){
-                        e.total_photos--
-                        acum = JSON.parse(JSON.stringify(e))
-                    }
-                    return acum
-                }, null
-                )
-            state.notInCollection.push(elem)
-            state.inCollection = state.inCollection.filter(e => e.id !== action.payload.collectionId)
-        },
-
-        setAddToCollection: (state, action) => {
-            const elem = state.notInCollection.reduce((acum,e) => 
-            {
-                if(e.id === action.payload.collectionId){
-                    e.total_photos++
-                    acum = JSON.parse(JSON.stringify(e))
-                }
-                return acum
-            }, null
-            )
-            state.inCollection.push(elem)
-            state.notInCollection = state.notInCollection.filter(e => e.id !== action.payload.collectionId)
-        },
-        */
-
         resetCollections: (state) => {
             state.inCollection = []
             state.notInCollection = []
@@ -68,8 +38,6 @@ export const {
     setInCollection, 
     setNotInCollection, 
     resetCollections, 
-    //setRemoveFromCollection, 
-    //setAddToCollection, 
     setAllCollections,
     setReload,
     setRefresh

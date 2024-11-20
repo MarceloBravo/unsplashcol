@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearResult } from "../../redux/slices/searchSlice";
 
 export const MainNavBarLogic = () => {
-  const [ isClickHome, setIsClickHome ] = useState(false)
-  const state = useSelector(state => state.searchSlice)
   const dispatch = useDispatch()
   const location = useLocation();
   const navigate = useNavigate()
 
-
-  useEffect(() => {
-    if(isClickHome && state.result.length === 0){
-      setIsClickHome(false)
-      navigate('/')
-    }
-    // eslint-disable-next-line
-  },[state, isClickHome])
-
+  //Permite resaltar elbotón activo en el menú de navegación
   const isActive = (URI) => {
     return location.pathname === URI ? "active" : ""
   }
 
+  //Maneja el evento click del botón home del menú de navegación
   const goToHome = () => {
-    setIsClickHome(true)
-    dispatch(clearResult())    
+    dispatch(clearResult())  
+    navigate('/')  
   }
 
   return ({ isActive, goToHome });

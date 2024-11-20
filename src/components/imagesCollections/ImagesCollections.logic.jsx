@@ -16,6 +16,8 @@ export const ImagesCollectionsLogic = (data, clear) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+
+  //Calcula cuantas columnas de imágenes deben mostrarse en pantalla de acuerdo al ancho de la pantalla
   useEffect(() => {
     setColumnas(parseInt(windowWidth / 288))
   },[windowWidth])  
@@ -26,6 +28,8 @@ export const ImagesCollectionsLogic = (data, clear) => {
     setResult(data ?? [])
   },[data])
 
+
+  //crea un array popr columna de imágenes a mostrar, que contiene las imágenes a mostrar por cada columna
   useEffect(() => {
     if(result.length > 0 && data){
         const imagenesPorColumna = Math.ceil(data.length / columnas)
@@ -38,13 +42,17 @@ export const ImagesCollectionsLogic = (data, clear) => {
     // eslint-disable-next-line
   },[result])
 
+  
   useEffect(() => {
+    //Cuando se detecta que la totalidad de las imágenes han sido agregadas a los arrays de las columnas a mostrar, 
+    //entonces de asigna a la constante "images" el array con las columnas de imágenes
     if(dataArr.reduce( (acum, value) => acum + value.length, 0) === data.length){
       setImages(dataArr)
     }
     // eslint-disable-next-line
   },[dataArr])
 
+  //Limpia el array con las imágenes a mostrar
   useEffect(() => {
     if(clear){
       setImages([])

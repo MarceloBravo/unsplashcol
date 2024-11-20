@@ -11,8 +11,9 @@ export const CardCollectionPreviewLogic = (data) => {
         return label
     }
 
+    //Función de evento click que redirecciona a la página que muestra las fotos que contiene la colección relacionada a la tarjeta
     const handlerClickCard = () => {
-        dispatch(setData({id: data.id, title: data.title, cantPhotos: data.total_photos, photos: data.preview_photos}))
+        dispatch(setData({id: data.id, title: data.title, cantPhotos: data.total_photos}))
         navigate('/collection_photos/'+data.id)
     }
 

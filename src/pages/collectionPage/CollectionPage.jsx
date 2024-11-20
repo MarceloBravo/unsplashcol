@@ -4,6 +4,8 @@ import { getAllCollections } from '../../actions/search'
 import CardCollectionPreview from '../../components/cardCollectionPreview/CardCollectionPreview'
 import './collectionPage.css'
 
+//Página que muestra las Cards en las que se visualizan las vistas previas de las imágenes 
+//contenidas en cada una de las colecciones
 const CollectionPage = () => {
     const collection = useSelector(state=> state.CollectionSlice.allCollections)
     const dispatch = useDispatch()
