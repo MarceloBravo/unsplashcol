@@ -11,7 +11,7 @@ const CardCollectionPreview = ({data}) => {
     <div className='col collection-card' onClick={() => handlerClickCard()}>
         <div className='row'>
             <div className={'col img-left ' + (data.total_photos <= 1 ? 'una-foto' : (data.total_photos === 2 ? 'dos-fotos' : 'tres-fotos'))}>
-                <img5
+                <img
                     className={data.total_photos <= 1 ? 'una-foto' : (data.total_photos === 2 ? 'dos-fotos' : 'tres-fotos')}
                     src={data.preview_photos ? data.preview_photos[0].urls.small : imgNotFound}
                     alt={data.title}

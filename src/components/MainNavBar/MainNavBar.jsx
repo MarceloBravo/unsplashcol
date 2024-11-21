@@ -28,7 +28,7 @@ const MainNavBar = () => {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
            <li className="nav-item">
-              <Link className={"nav-link " + (isActive("/") || isActive("/search_result"))} aria-current="page" onClick={e => goToHome()}>
+              <Link className={"nav-link " + (isActive("/") || isActive("/search_result"))} aria-current="page" to="/" onClick={e => goToHome()}>
                 Home
               </Link>
             </li>

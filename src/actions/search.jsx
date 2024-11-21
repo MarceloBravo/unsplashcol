@@ -2,11 +2,11 @@ import axios from 'axios'
 import { setResult } from '../redux/slices/searchSlice'
 import { setMessage } from '../redux/slices/messageSlice.jsx';
 import { setInCollection, setNotInCollection, setAllCollections, setRefresh} from '../redux/slices/collectionsSlice';
-import { UNSPLASH_ACCESS_KEY } from '../shared/constantes.js'
+import { UNSPLASH_ACCESS_KEY, ACCESS_TOKEN } from '../shared/constantes.js'
 import { setCollectionPhotos } from '../redux/slices/selectedCollectionSlice.jsx';
 import { setImage } from '../redux/slices/selectedImageSlice.jsx';
 import { setShowSpinner } from '../redux/slices/spinnerSlice.jsx';
-export const ACCESS_TOKEN = 'mxCLrQITsENlZrtxuvG09ri8hXGZvpWILVD8VXYlDoQ'
+//export const ACCESS_TOKEN = 'mxCLrQITsENlZrtxuvG09ri8hXGZvpWILVD8VXYlDoQ'
 
 export const search = (value) => async (dispatch) => {
     try {
